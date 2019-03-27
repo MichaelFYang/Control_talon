@@ -1,0 +1,16 @@
+<launch>
+    
+  <node name="joy_node" pkg="joy" type="joy_node">
+  </node>
+ 
+  <node name="joy_ctrl" pkg="control_talon" type="joy_ctrl">
+  </node>
+
+  <!-- node name="position_control" pkg="dynamixel_workbench_controllers" type="position_control"-->
+  <!-- /node -->
+
+  <node name="servo_pos" pkg="ros_talon" type="servo_pos">
+  </node>
+
+</launch>
+
