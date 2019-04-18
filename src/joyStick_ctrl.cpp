@@ -7,7 +7,7 @@
 #include "dynamixel_workbench_msgs/JointCommand.h"
 
 #define MAX_TURN 360
-#define MAX_F 700
+#define MAX_F 1250
 #define MIN_F 290
 #define TURN_INDEX 3
 #define F_INDEX 2
@@ -32,7 +32,9 @@ void Callback(const sensor_msgs::Joy cmd) {
     
     f_rate = cmd.axes[F_INDEX];
     ROS_INFO("Msg Recieved");
-    f_cmd_srv.position = {MIN_F + (-f_rate+1)/2 * f_gap};
+    if (f_cmd_srv.position.empty()) f_cmd_srv.position.push_back(MIN_F + (-f_rate+1)/2 * f_gap);
+    else {f_cmd_srv.position[0] = MIN_F + (-f_rate+1)/2 * f_gap;}
+    //f_cmd_srv.position[1] = {MIN_F + (-f_rate+1)/2 * f_gap};
     pub_f.publish(f_cmd_srv);
 
     // if (client.call(f_cmd_srv)) {
